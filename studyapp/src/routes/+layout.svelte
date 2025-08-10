@@ -17,7 +17,7 @@
 <style>
 	:global(body) {
 		margin: 0;
-		background-color: hsl(0%, 0% 100%);
+		background-color: hsl(0%, 0% 90%);
 		font-family: "Mozilla Text", sans-serif;
 	}
 	
