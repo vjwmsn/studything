@@ -1,5 +1,5 @@
 <script>
-    let {content = "Button", onClick} = $props()
+    let {content = "Button", onClick, align=""} = $props()
 
 
     function handleClick () {
@@ -8,7 +8,7 @@
 
 </script>
 
-<button class="regular-button" onclick={handleClick}>{content}</button>
+<button class="regular-button {align}" onclick={handleClick}>{content}</button>
 
 <style>
     .regular-button {
@@ -19,14 +19,25 @@
         color: hsl(0, 0%, 95%);
         opacity: 100%;
         transition: 0.3s;
-        filter: drop-shadow(0 0 0 1rem hsl(257, 90%, 50%));
+        filter: drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
         font-weight: 800;
         font-family: "Mozilla Text", "sans-serif";
         margin-left: 5px;
         margin-right: 5px;
-        text-align: center;    
+        text-align: center; 
+        transition: all 0.3s;
    
     }
 
-    .regular-button:hover {filter: drop-shadow(0 0 0.5rem hsl(257, 100%, 50%));}
+    .regular-button:hover {filter: drop-shadow(0 0 0.25rem hsl(257, 100%, 50%)) brightness(120%); cursor: pointer;}
+
+    .right {
+        margin-left: auto;
+    }
+
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 </style>
