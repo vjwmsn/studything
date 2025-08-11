@@ -77,7 +77,8 @@
         display: flex;
         flex-direction: column;
         height: 100vh;
-        background: linear-gradient(hsl(0,0%,100%), hsl(0,0%,88%));
+        background: linear-gradient(hsl(0,0%,100%), hsl(0,0%,85%));
+        
     }
 
     .main {
