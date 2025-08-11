@@ -4,7 +4,7 @@
 
 <div class="progressBar {align}">
     <div class="progress_fill" style="width: {progress}%;"></div>
-    <span class="progress_span" style="color: hsla(0, 0%, 0%, 0.75);">{content}</span>
+    <span class="progress_span notouchy" style="color: hsla(0, 0%, 0%, 0.75);">{content}</span>
 </div>
 
 <style>
@@ -32,7 +32,7 @@
         left: 0;
         height: 100%;
         background: linear-gradient(90deg, hsl(257, 90%, 50%),hsl(268, 100%, 50%),hsl(278, 100%, 65%));
-        filter: blur(1px) brightness(100%);
+        filter: blur(1px) brightness(100%) drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
         border-radius: 10px;
         transition: all 0.3s;
     }
@@ -50,6 +50,10 @@
         transform: translate(-50%, -50%);
 
         
+    }
+
+    .notouchy {
+        user-select: none;
     }
 
 </style>

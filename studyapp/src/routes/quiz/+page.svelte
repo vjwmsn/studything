@@ -1,18 +1,37 @@
 <script>
+    //import Topbar from "$lib/Bar.svelte"
     import Bar from "$lib/Bar.svelte"
     import Btn from "$lib/TextButton.svelte"
     import Label from "$lib/TextLabel.svelte"
     import ProgressBar from "$lib/ProgressBar.svelte";
+    import InputField from "$lib/InputField.svelte";
 
     let submitButtonStates = ["Skip Question", "Submit", "Next Question"]
     let submitButtonState = 0
     
+    let quizJSON = {
+        "quizName": "Untitled Quiz",
+        "quizNativeLanguage": "English",
+        "quizTargetLanguage": "Spanish",
+        "forcePerfectDiacritic": false, // forces the user to spell perfect diacritic marks e.g "é" would be marked correct and "e" wouldn't.
+        "forcePerfectPunctuation": false, // forces the user to spell with perfect punctuation e.g "Hello world!" would be marked correct and "Hello world" wouldn't.
+        "forcePerfectLetterCases": false, // forces the user to spell with perfect letter cases e.g "E" would be marked correct and "e" wouldn't.
+        "quizWords": [
+            {"nativeWord": "To speak", "targetWord": "Hablar"},
+            {"nativeWord": "To eat", "targetWord": "Comer"},
+            {"nativeWord": "Computer", "targetWord": "Ordenador"},
+            {"nativeWord": "Bottle", "targetWord": "Bottella"},
+            {"nativeWord": "", "targetWord": ""}, // NO TOUCHY
+        ]
+    }
 
-    let questionCount = $state(15)
+    let questionCount = $state(quizJSON.quizWords.length - 1) // i know this is a bandage fix but whatever, who cares?
     let questionsCompleted = $state(0)
     let percentageCompleted = $state(0)
 
-    let count = $state(50)
+    let inputValue = $state("")
+    let inputPlaceholder = $state("Type your answer here")
+    let inputIsDisabled = $state(false)
 
     function submit () {
         questionsCompleted++
@@ -27,11 +46,66 @@
         
 </script>
 
-<div>
+<div id="body">
     <Bar>
         <Btn content="Leave"/>
-        <Label content="Spanish Glossary Week 34"/>
-        <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.ceil(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
+        <Label content={quizJSON.quizName}/>
+        <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.floor(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
         <Btn content={submitButtonStates[submitButtonState]} align="right" onClick={submit}/>
     </Bar>
+
+    <div class="main">
+        <div class="question-header">
+            <div style="display: flex; flex-direction: row;">
+                <span class="notouchy">Write "</span>
+                <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
+                <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
+        </div>
+
+            <div style="display: flex; flex-direction: row; max-width: 100%;">
+                    <InputField placeholder={inputPlaceholder} value={inputValue} isDisabled={inputIsDisabled}/>
+            </div>
+
+        </div>
+       
+    </div>
+
 </div>
+
+ <style>
+    #body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: linear-gradient(hsl(0,0%,100%), hsl(0,0%,88%));
+    }
+
+    .main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        flex: 1;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 5%;
+        border-radius: 10px;
+    }
+
+    .question-header {
+        margin-bottom: 40%;
+        font-size: xx-large;
+        font-weight: 600;
+        color: hsl(0,0%,25%);
+
+    }
+
+    .highlight-wavy {
+        text-decoration: hsl(257, 90%, 50%) wavy underline;
+        font-weight: 900;
+    }
+
+    .notouchy {
+        user-select: none;
+    }
+ </style>

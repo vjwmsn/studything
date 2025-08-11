@@ -18,6 +18,7 @@
         text-align: center;
         font-family: "Mozilla Text", "sans-serif";
         font-weight: 800;
+        transition: 0.3s;
     }
 
     .right {
