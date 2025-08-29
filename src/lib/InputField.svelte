@@ -1,7 +1,7 @@
 <script>
     // still mad about export let
     let {
-        value = "",
+        value = $bindable(""),
         placeholder = "",
         isDisabled = false
         } = $props()
@@ -9,7 +9,7 @@
 </script>
 
 <div class="container">
-    <input bind:value={value} class="input" type="text" placeholder={placeholder} disabled={isDisabled}>
+    <input bind:value class="input" type="text" placeholder={placeholder} disabled={isDisabled}>
 </div>
 
 <style>

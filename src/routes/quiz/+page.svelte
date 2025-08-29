@@ -25,6 +25,8 @@
         ]
     }
 
+    let wordArray = quizJSON.quizWords
+
     let questionCount = $state(quizJSON.quizWords.length - 1) // i know this is a bandage fix but whatever, who cares?
     let questionsCompleted = $state(0)
     let percentageCompleted = $state(0)
@@ -34,15 +36,34 @@
     let inputIsDisabled = $state(false)
 
     function submit () {
-        questionsCompleted++
-        percentageCompleted = calculatePercentage(questionCount, questionsCompleted)
+
         console.log(percentageCompleted)
+
+        console.log(wordArray[questionsCompleted].targetWord)
+        console.log(inputValue)
+
+
+        if (inputValue !== "") {
+            if (wordArray[questionsCompleted].targetWord == inputValue) {
+                questionsCompleted++
+                console.log("correct!")
+            } else {
+                console.log("incorrect!")
+            }
+        } else {
+            questionsCompleted++
+        }
+
+        inputValue = ""
+        percentageCompleted = calculatePercentage(questionCount, questionsCompleted)
+
     }
 
     function calculatePercentage (total, completed) {
         if (total === 0) return 0;
         return completed / total * 100;
     }
+
         
 </script>
 
@@ -63,7 +84,7 @@
         </div>
 
             <div style="display: flex; flex-direction: row; max-width: 100%;">
-                    <InputField placeholder={inputPlaceholder} value={inputValue} isDisabled={inputIsDisabled}/>
+                    <InputField placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled}/>
             </div>
 
         </div>
