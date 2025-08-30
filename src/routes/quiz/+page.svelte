@@ -7,7 +7,7 @@
     import InputField from "$lib/InputField.svelte";
     import { slide } from 'svelte/transition'
 
-    let submitButtonStates = ["Skip Question", "Submit", "Next Question"]
+    let submitButtonStates = ["Skip Question", "Submit Answer"]
     let submitButtonState = 0
     
     let quizJSON = {
@@ -44,14 +44,12 @@
         questionsCompleted++;
         inputValue = "";
         percentageCompleted = calculatePercentage(questionCount, questionsCompleted);
-        sliding = true; // Show next question
+        sliding = true; 
     }
 
     function submit() {
-        // Prevent double submission while sliding out
         if (!sliding) return;
 
-        // Example answer check (customize as needed)
         const currentTarget = wordArray[questionsCompleted].targetWord.trim().toLowerCase();
         const userInput = inputValue.trim().toLowerCase();
 
@@ -65,7 +63,7 @@
              console.log("skipped")
         }
 
-        // Start slide-out
+
         sliding = false;
     }
 
@@ -85,8 +83,12 @@
         <Label content={quizJSON.quizName}/>
         <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.floor(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
         
-        <Btn content={submitButtonStates[submitButtonState]} align="right" onClick={submit}/>
-
+        {#if inputValue !== ""}
+            <Btn content={submitButtonStates[1]} align="right" onClick={submit}/>
+        {/if}
+        {#if inputValue == ""}
+            <Btn content={submitButtonStates[0]} align="right" onClick={submit}/>
+        {/if}
 
     </Bar>
 
@@ -105,7 +107,7 @@
                     <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
                 </div>
                 <div style="display: flex; flex-direction: row; max-width: 100%;">
-                    <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled}/>
+                    <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled} onEnterUp={submit}/>
                 </div>
             </div>
         {/if}

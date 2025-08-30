@@ -1,15 +1,25 @@
 <script>
-    // still mad about export let
     let {
         value = $bindable(""),
         placeholder = "",
-        isDisabled = false
-        } = $props()
-
+        isDisabled = false,
+        onEnterUp = null,
+    } = $props();
 </script>
 
 <div class="container">
-    <input bind:value class="input" type="text" placeholder={placeholder} disabled={isDisabled}>
+    <input
+        bind:value
+        class="input"
+        type="text"
+        placeholder={placeholder}
+        disabled={isDisabled}
+        onkeyup={(e) => {
+            if (e.key === "Enter" && typeof onEnterUp === "function") {
+                onEnterUp(e);
+            }
+        }}
+    >
 </div>
 
 <style>
@@ -37,6 +47,4 @@
         filter: drop-shadow(0 0 0.25rem hsl(257, 100%, 50%));
         outline: 0;
     }
-    
-
 </style>
