@@ -5,6 +5,7 @@
     import Label from "$lib/TextLabel.svelte"
     import ProgressBar from "$lib/ProgressBar.svelte";
     import InputField from "$lib/InputField.svelte";
+    import { slide } from 'svelte/transition'
 
     let submitButtonStates = ["Skip Question", "Submit", "Next Question"]
     let submitButtonState = 0
@@ -25,6 +26,7 @@
         ]
     }
 
+
     let wordArray = quizJSON.quizWords
     let quizName = quizJSON.quizName
 
@@ -36,29 +38,35 @@
     let inputPlaceholder = $state("Type your answer here")
     let inputIsDisabled = $state(false)
 
-    function submit () {
+    let sliding = $state(true)
 
-        console.log(percentageCompleted)
+    function handleOutroEnd() {
+        questionsCompleted++;
+        inputValue = "";
+        percentageCompleted = calculatePercentage(questionCount, questionsCompleted);
+        sliding = true; // Show next question
+    }
 
-        console.log(wordArray[questionsCompleted].targetWord)
-        console.log(inputValue)
+    function submit() {
+        // Prevent double submission while sliding out
+        if (!sliding) return;
 
+        // Example answer check (customize as needed)
+        const currentTarget = wordArray[questionsCompleted].targetWord.trim().toLowerCase();
+        const userInput = inputValue.trim().toLowerCase();
 
-        if (inputValue !== "") {
-            if (wordArray[questionsCompleted].targetWord == inputValue) {
-                questionsCompleted++
-                console.log("correct!")
+        if (userInput !== "") {
+            if (userInput === currentTarget) {
+                console.log("correct")
             } else {
-                console.log("incorrect!")
+                console.log("incorrect")
             }
         } else {
-            questionsCompleted++
-            mainHolder.classList.remove("fade in")
+             console.log("skipped")
         }
 
-        inputValue = ""
-        percentageCompleted = calculatePercentage(questionCount, questionsCompleted)
-
+        // Start slide-out
+        sliding = false;
     }
 
     function calculatePercentage (total, completed) {
@@ -76,26 +84,31 @@
         <Btn content="Leave"/>
         <Label content={quizJSON.quizName}/>
         <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.floor(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
+        
         <Btn content={submitButtonStates[submitButtonState]} align="right" onClick={submit}/>
+
+
     </Bar>
 
     <div class="main">
-        <div id="main-pt2" class="question-header slide-in">
-
-            <div style="display: flex; flex-direction: row;">
-                <span class="notouchy">Write "</span>
-                <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
-                <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
-                <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
-        </div>
-
-            <div style="display: flex; flex-direction: row; max-width: 100%;">
+        {#if sliding}
+            <div
+                id="main-pt2"
+                class="question-header"
+                transition:slide={{ duration: 400 }}
+                onoutroend={handleOutroEnd}
+            >
+                <div style="display: flex; flex-direction: row;">
+                    <span class="notouchy">Write "</span>
+                    <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
+                    <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
+                    <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
+                </div>
+                <div style="display: flex; flex-direction: row; max-width: 100%;">
                     <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled}/>
-                
+                </div>
             </div>
-
-        </div>
-       
+        {/if}
     </div>
 
 </div>
@@ -140,6 +153,11 @@
         animation-duration: 1s;
     }
 
+    .slide-out {
+        animation-name: slide-out;
+        animation-duration: 1s;
+    }
+
     @keyframes slide-in {
         from {
             translate: 50vw 0;
@@ -156,6 +174,10 @@
         from {
             translate: 0 0;
             opacity: 100%;
+        }
+        to {
+            translate: 50vw 0;
+            opacity: 0%;
         }
         
     }

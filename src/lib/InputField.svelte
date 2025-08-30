@@ -18,6 +18,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        width: auto;
     }
 
     .input {
@@ -30,8 +31,8 @@
         transition: 0.3s;
         margin: 5px;
         width: auto;
+        filter: drop-shadow(0 0 0.05rem hsl(0, 0%, 18%));
     }
-
     .input:focus {
         filter: drop-shadow(0 0 0.25rem hsl(257, 100%, 50%));
         outline: 0;

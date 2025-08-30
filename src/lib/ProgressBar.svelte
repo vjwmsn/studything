@@ -15,7 +15,7 @@
         border: 0px;
         border-radius: 10px;
         background: linear-gradient(hsl(0, 0%, 100%), hsl(0,0%,90%));
-        filter: drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
+        filter: drop-shadow(0 0 0.05rem hsl(0, 0%, 24%));
         padding: 10px;
         color: hsl(0, 0%, 25%);
         margin-left: 5px;
@@ -31,8 +31,8 @@
         position: absolute;
         left: 0;
         height: 100%;
-        background: linear-gradient(90deg, hsl(257, 90%, 50%),hsl(268, 100%, 50%),hsl(278, 100%, 65%));
-        filter: blur(1px) brightness(100%) drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
+        background: linear-gradient(90deg, hsl(257, 90%, 50%),hsl(281, 100%, 50%),hsl(278, 100%, 65%));
+        filter:  brightness(100%) drop-shadow(0 0 0.1rem hsl(257, 90%, 50%));
         border-radius: 10px;
         transition: all 0.3s;
     }

@@ -10,7 +10,7 @@
         border: 0px;
         border-radius: 10px;
         background: linear-gradient(hsl(0, 0%, 100%), hsl(0,0%,90%));
-        filter: drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
+        filter: drop-shadow(0 0 0.05rem hsl(0, 0%, 24%));
         padding: 10px;
         color: hsl(0, 0%, 25%);
         margin-left: 5px;
