@@ -26,6 +26,7 @@
     }
 
     let wordArray = quizJSON.quizWords
+    let quizName = quizJSON.quizName
 
     let questionCount = $state(quizJSON.quizWords.length - 1) // i know this is a bandage fix but whatever, who cares?
     let questionsCompleted = $state(0)
@@ -52,6 +53,7 @@
             }
         } else {
             questionsCompleted++
+            mainHolder.classList.remove("fade in")
         }
 
         inputValue = ""
@@ -67,6 +69,8 @@
         
 </script>
 
+<title>StudyThing - {quizName}</title>
+
 <div id="body">
     <Bar>
         <Btn content="Leave"/>
@@ -76,15 +80,18 @@
     </Bar>
 
     <div class="main">
-        <div class="question-header">
+        <div id="main-pt2" class="question-header slide-in">
+
             <div style="display: flex; flex-direction: row;">
                 <span class="notouchy">Write "</span>
                 <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
                 <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
+                <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
         </div>
 
             <div style="display: flex; flex-direction: row; max-width: 100%;">
-                    <InputField placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled}/>
+                    <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled}/>
+                
             </div>
 
         </div>
@@ -94,6 +101,13 @@
 </div>
 
  <style>
+
+    .hidden {
+        display: none;
+    }
+
+
+
     #body {
         display: flex;
         flex-direction: column;
@@ -119,7 +133,31 @@
         font-size: xx-large;
         font-weight: 600;
         color: hsl(0,0%,25%);
+    }
 
+    .slide-in {
+        animation-name: slide-in;
+        animation-duration: 1s;
+    }
+
+    @keyframes slide-in {
+        from {
+            translate: 50vw 0;
+            opacity: 0%;
+        }
+
+        to {
+            translate: 0 0;
+            opacity: 100%;
+        }
+    }
+
+    @keyframes slide-out {
+        from {
+            translate: 0 0;
+            opacity: 100%;
+        }
+        
     }
 
     .highlight-wavy {

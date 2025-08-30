@@ -6,7 +6,7 @@
 
 <svelte:head>
 
-	<title>StudyThing</title>
+
 	<link rel="icon" href={favicon} />
 
 	<style>

@@ -31,6 +31,8 @@
 
     .regular-button:hover {filter: drop-shadow(0 0 0.25rem hsl(257, 100%, 50%)) brightness(120%); cursor: pointer;}
 
+    .regular-button:active {filter:  drop-shadow(0 0 0.15rem hsl(257, 100%, 50%)) brightness(90%); cursor: pointer; transition: all 0.1s;}
+
     .right {
         margin-left: auto;
     }
