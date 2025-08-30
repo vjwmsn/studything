@@ -19,7 +19,7 @@
         color: hsl(0, 0%, 95%);
         opacity: 100%;
         transition: 0.3s;
-        filter: drop-shadow(0 0 0.15rem hsl(257, 90%, 50%));
+        filter: drop-shadow(0 0 0.1rem hsl(257, 90%, 50%));
         font-weight: 800;
         font-family: "Mozilla Text", "sans-serif";
         margin-left: 5px;
