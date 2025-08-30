@@ -98,8 +98,7 @@
                 id="main-pt2"
                 class="question-header"
                 transition:slide={{ duration: 400 }}
-                onoutroend={handleOutroEnd}
-            >
+                onoutroend={handleOutroEnd}>
                 <div style="display: flex; flex-direction: row;">
                     <span class="notouchy">Write "</span>
                     <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
