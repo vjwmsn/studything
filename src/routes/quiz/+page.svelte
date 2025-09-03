@@ -12,6 +12,7 @@
     
     let quizJSON = {
         "quizName": "Untitled Quiz",
+        "testMode": true, // basically you don't know your results until the end of the quiz with test mode
         "quizNativeLanguage": "English",
         "quizTargetLanguage": "Spanish",
         "forcePerfectDiacritic": false, // forces the user to spell perfect diacritic marks e.g "é" would be marked correct and "e" wouldn't.
@@ -189,7 +190,7 @@
     }
 
     .highlight-wavy {
-        text-decoration: hsl(257, 90%, 50%) wavy underline;
+        text-decoration: var(--color-accent-1) wavy underline;
         font-weight: 900;
     }
 
