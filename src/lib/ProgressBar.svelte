@@ -34,7 +34,7 @@
         background: linear-gradient(90deg, hsl(257, 90%, 50%),hsl(281, 100%, 50%),hsl(278, 100%, 65%));
         filter:  brightness(100%) drop-shadow(0 0 0.rem hsl(257, 90%, 50%));
         border-radius: 10px;
-        transition: all 0.3s;
+        transition: all 0.8s;
     }
 
     .fill-stretch {

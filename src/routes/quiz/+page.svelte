@@ -5,9 +5,9 @@
     import Label from "$lib/TextLabel.svelte"
     import ProgressBar from "$lib/ProgressBar.svelte";
     import InputField from "$lib/InputField.svelte";
-    import { slide } from 'svelte/transition'
+    import { fade } from 'svelte/transition'
 
-    let submitButtonStates = ["Skip Question", "Submit Answer"]
+    let submitButtonStates = ["Skip Question", "Submit Answer", "View Results"]
     let submitButtonState = 0
     
     let quizJSON = {
@@ -23,6 +23,7 @@
             {"nativeWord": "To eat", "targetWord": "Comer"},
             {"nativeWord": "Computer", "targetWord": "Ordenador"},
             {"nativeWord": "Bottle", "targetWord": "Bottella"},
+            {"nativeWord": "Ice Cream", "targetWord": "Helado"},
             {"nativeWord": "", "targetWord": ""}, // NO TOUCHY
         ]
     }
@@ -84,21 +85,24 @@
         <Label content={quizJSON.quizName}/>
         <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.floor(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
         
-        {#if inputValue !== ""}
+        {#if inputValue !== "" & questionsCompleted !== questionCount}
             <Btn content={submitButtonStates[1]} align="right" onClick={submit}/>
         {/if}
-        {#if inputValue == ""}
+        {#if inputValue == "" & questionsCompleted !== questionCount}
             <Btn content={submitButtonStates[0]} align="right" onClick={submit}/>
+        {/if}
+        {#if questionsCompleted == questionCount}
+            <Btn content={submitButtonStates[2]} align="right" onClick={submit}/>
         {/if}
 
     </Bar>
 
     <div class="main">
-        {#if sliding}
+        {#if sliding & questionsCompleted !== questionCount}
             <div
                 id="main-pt2"
                 class="question-header"
-                transition:slide={{ duration: 400 }}
+                transition:fade={{ duration: 400 }}
                 onoutroend={handleOutroEnd}>
                 <div style="display: flex; flex-direction: row; margin-bottom: 10px;">
                     <span class="notouchy">Write "</span>
@@ -115,6 +119,15 @@
                     </div>
                 </div>
             </div>
+        {/if}
+        {#if questionsCompleted == questionCount}
+        <div class="question-header"
+        transition:fade={{ duration: 400 }}
+        onoutroend={handleOutroEnd}
+        style="display: flex; flex-direction: column;">
+            <span style="margin: 10px;">Quiz Complete. Well done!</span>
+            <Btn content="View Results"/>
+        </div>
         {/if}
     </div>
 
