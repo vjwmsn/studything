@@ -99,14 +99,19 @@
                 class="question-header"
                 transition:slide={{ duration: 400 }}
                 onoutroend={handleOutroEnd}>
-                <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; flex-direction: row; margin-bottom: 10px;">
                     <span class="notouchy">Write "</span>
-                    <span class="highlight-wavy notouchy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
+                    <span class="highlight-wavy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
                     <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
                     <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
                 </div>
-                <div style="display: flex; flex-direction: row; max-width: 100%;">
+                <div style="display: flex; flex-direction: row;">
+                    
                     <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled} onEnterUp={submit}/>
+                    
+                    <div style="margin-left: 5px; margin-top: 5px;">
+                    <Btn content="Submit" onClick={submit}/>
+                    </div>
                 </div>
             </div>
         {/if}
@@ -138,7 +143,7 @@
         flex: 1;
         margin-left: 10%;
         margin-right: 10%;
-        margin-top: 5%;
+        margin-top: 8%;
         border-radius: 10px;
     }
 
