@@ -131,7 +131,7 @@
     .end {
         border-radius: 0px 0px 10px 10px;
     }
-
+/*
     .correct {
         background: linear-gradient(90deg, hsla(0 0% 100% / 0), var(--color-accent-green));
     }
@@ -143,5 +143,5 @@
     .incorrect {
         background: linear-gradient(90deg, hsla(0 0% 100% / 0), var(--color-accent-red));
     }
-
+*/
 </style>
