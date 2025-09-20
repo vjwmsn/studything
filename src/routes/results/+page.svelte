@@ -85,7 +85,7 @@
     }
 
 .table-element {
-    background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 90%));
+    background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 98%));
     border: 1px solid;
     height: 2rem;
     border-color: hsl(0, 0%, 75%);
@@ -99,7 +99,7 @@
 }
 
     .table-element:hover {
-        box-shadow: inset 0px 0px 5px hsl(0, 0%, 35%);
+        box-shadow: inset 0px 0px 5px hsl(0, 0%, 75%);
         filter: drop-shadow(0 0 0.05rem hsl(0, 0%, 24%));
     }
 
