@@ -77,7 +77,7 @@
         
 </script>
 
-<title>StudyThing - {quizName}</title>
+<title>{quizName} | StudyThing</title>
 
 <div id="body">
     <Bar>

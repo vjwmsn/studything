@@ -23,6 +23,10 @@
 
 </script>
 
+<header>
+    <title>Results | StudyThing</title>
+</header>
+
 <Bar>
 <span style="font-size: x-large; margin-left: 5px; font-weight: 600; color: var(--color-accent-90-50);">StudyThing</span>
 <Btn content="Finish" align="right"/>
@@ -77,6 +81,7 @@
     .table {
         height: auto;
         width: 50%;
+        margin-top: 15px;
     }
 
 .table-element {
