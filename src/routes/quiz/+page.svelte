@@ -102,7 +102,7 @@
             <div
                 id="main-pt2"
                 class="question-header"
-                transition:fade={{ duration: 400 }}
+                transition:fade={{ duration: 300 }}
                 onoutroend={handleOutroEnd}>
                 <div style="display: flex; flex-direction: row; margin-bottom: 10px;">
                     <span class="notouchy">Write "</span>
@@ -170,12 +170,12 @@
 
     .slide-in {
         animation-name: slide-in;
-        animation-duration: 1s;
+        animation-duration: 0.5s;
     }
 
     .slide-out {
         animation-name: slide-out;
-        animation-duration: 1s;
+        animation-duration: 0.5s;
     }
 
     @keyframes slide-in {
