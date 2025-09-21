@@ -2,6 +2,8 @@
     import Bar from "$lib/Bar.svelte"
     import Btn from "$lib/TextButton.svelte"
     import BreakdownBar from "$lib/BreakdownBar.svelte";
+    import Table from "$lib/Table.svelte";
+    import TableElement from "$lib/TableElement.svelte";
 
     let breakdownInfo = [
     { name: 'Correct', percentage: 30, bg: 'var(--color-accent-green)' },
@@ -12,20 +14,23 @@
     let answerResults = [
         {
             word: "Hablar",
-            result: "correct" },
+            result: "Correct" },
         {
             word: "Comer",
-            result: "correct"},
+            result: "Skipped"},
         {
             word: "Ordenador",
-            result: "incorrect"}
+            result: "Incorrect"},
+        {
+            word: "Botella",
+            result: "Correct"}
     ];
 
 </script>
 
-<header>
+<svelte:head>
     <title>Results | StudyThing</title>
-</header>
+</svelte:head>
 
 <Bar>
 <span style="font-size: x-large; margin-left: 5px; font-weight: 600; color: var(--color-accent-90-50);">StudyThing</span>
@@ -36,20 +41,54 @@
 <div class="main">
 <BreakdownBar zones={breakdownInfo} />
     <div class="row">
+        <!--MEGA SPAGHETTI CODE-->
 
-        <div class="table">
-            <div class="table-element left top "><span class="align-left">Hablar</span></div>
-            <div class="table-element left middle"><span class="align-left">Comer</span></div>
-            <div class="table-element left end"><span class="align-left">Ordenador</span></div>
-        </div>
+        {#if answerResults.length === 1}
+            <Table>
+                <TableElement self=true side=left text={answerResults[0].word}/>
+            </Table>
+            <Table>
+                <TableElement self=true side=right text={answerResults[0].result}/>
+            </Table>
+        {/if}
 
-        <div class="table">
-            <div class="table-element right top correct"><span class="align-right">Correct</span></div>
-            <div class="table-element right middle skipped"><span class="align-right">Skipped</span></div>
-            <div class="table-element right end incorrect"><span class="align-right">Incorrect</span></div>
-        </div>
+        {#if answerResults.length === 2}
+            <Table>
+                <TableElement top=true side=left text={answerResults[0].word}/>
+                <TableElement bottom=true side=left text={answerResults[1].word}/>
+            </Table>
+            <Table>
+                <TableElement top=true side=right text={answerResults[0].result}/>
+                <TableElement bottom=true side=right text={answerResults[1].result}/>
+            </Table>
+        {/if}
+
+        {#if answerResults.length >= 3}
+            <Table>
+                <TableElement top=true side=left text={answerResults[0].word}/>
+                {#each answerResults.slice(1, -1) as element, i (element.word + i)}
+                    <TableElement middle=true side=left text={element.word}/>
+                {/each}
+                <TableElement bottom=true side=left text={answerResults[answerResults.length - 1].word}/>
+            </Table>
+
+            <Table>
+                <TableElement top=true side=right text={answerResults[0].result}/>
+                {#each answerResults.slice(1, -1) as element, i (element.result + i)}
+                    <TableElement middle=true side=right text={element.result}/>
+                {/each}
+                <TableElement bottom=true side=right text={answerResults[answerResults.length - 1].result}/>
+            </Table>
+        {/if}
+
+
     </div>
+
 </div>
+
+
+
+
 <style>
     :global(body) {
         display: flex;
@@ -84,19 +123,19 @@
         margin-top: 15px;
     }
 
-.table-element {
-    background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 98%));
-    border: 1px solid;
-    height: 2rem;
-    border-color: hsl(0, 0%, 75%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    transition: all 0.5s
-}
+    .table-element {
+        background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 98%));
+        border: 1px solid;
+        height: 2rem;
+        border-color: hsl(0, 0%, 75%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        transition: all 0.5s
+    }
 
     .table-element:hover {
         box-shadow: inset 0px 0px 5px hsl(0, 0%, 75%);

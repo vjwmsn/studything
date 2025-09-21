@@ -44,7 +44,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		transition: all 0.5s;
+		transition: all 0.2s;
 	}
 
     .progress_fill:hover {
