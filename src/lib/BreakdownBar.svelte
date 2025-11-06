@@ -29,7 +29,7 @@
 		background: linear-gradient(hsl(0, 0%, 100%), hsl(0, 0%, 90%));
 		filter: drop-shadow(0 0 0.05rem hsl(0, 0%, 24%));
 		padding: 0; 
-		color: var(--color-bg-dark-start); 
+		color: var(--color-bg-end); 
         height: auto;
 		text-align: center;
 		font-family: 'Mozilla Text', 'sans-serif';

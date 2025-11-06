@@ -26,10 +26,10 @@
 	:global(:root) {
 		--color-accent-1: hsl(257, 100%, 50%);
 		--color-accent-1-90-50: hsl(257, 90%, 50%);
-		--color-accent-1-90-35: hsl(257, 90%, 35%);
-		--color-accent-green: hsl(145, 100%, 70%);
-		--color-accent-red: hsl(4, 100%, 65%);
-		--color-accent-yellow: hsl(49, 100%, 75%);
+		--color-accent-1-90-35: hsl(257, 90%, 40%);
+		--color-accent-green: hsl(257, 100%, 50%);
+		--color-accent-red: hsl(257, 100%, 80%);
+		--color-accent-yellow: hsl(257, 100%, 65%);
 		--color-bg-start: hsl(0, 0%, 100%);
 		--color-bg-end: hsl(0, 0%, 90%);
 		--color-bg-dark-start: hsl(0, 0%, 15%);
