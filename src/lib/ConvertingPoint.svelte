@@ -15,7 +15,7 @@
 
 .point.active {
   background: linear-gradient(var(--color-accent-1), var(--color-accent-1-90-50));
-  transform: rotate(45deg) scale(0.75);
+  transform: rotate(45deg) scale(1);
   border-radius: 0%;
   filter: drop-shadow(0 0 0.25rem var(--color-accent-1));
 }

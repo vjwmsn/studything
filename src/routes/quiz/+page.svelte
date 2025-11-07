@@ -6,9 +6,16 @@
     import ProgressBar from "$lib/ProgressBar.svelte";
     import InputField from "$lib/InputField.svelte";
     import { fade } from 'svelte/transition'
+    import { slide } from 'svelte/transition'
+    import ConvertingPoint from "$lib/ConvertingPoint.svelte";
+    
 
-    let submitButtonStates = ["Skip Question", "Submit Answer", "View Results"]
+    let submitButtonStates = ["Skip Question", "Submit Answer", "View Results", "Next Question","Try Again"]
     let submitButtonState = 0
+
+    let commentTextPositive = ["Correct — Well done!", "Correct — Nice job!"]
+    let commentTextNegative = ["Hmm, not quite right."]
+    let commentText = $state("")
     
     let quizJSON = {
         "quizName": "Untitled Quiz",
@@ -40,6 +47,9 @@
     let inputPlaceholder = $state("Type your answer here")
     let inputIsDisabled = $state(false)
 
+    let quesstionIsCorrect = $state(false)
+    let limbo = $state(false)
+
     let sliding = $state(true)
 
     function handleOutroEnd() {
@@ -58,15 +68,19 @@
         if (userInput !== "") {
             if (userInput === currentTarget) {
                 console.log("correct")
+                quesstionIsCorrect = true
+                limboFunction("correct")
             } else {
                 console.log("incorrect")
+                limboFunction("incorrect")
             }
         } else {
              console.log("skipped")
+             sliding = false
         }
 
 
-        sliding = false;
+        
     }
 
     function calculatePercentage (total, completed) {
@@ -74,7 +88,30 @@
         return completed / total * 100;
     }
 
-        
+
+    function limboFunction (type) {
+        if (type == "correct") {
+        limbo = true
+        inputIsDisabled = true
+        commentText = commentTextPositive[Math.floor(Math.random() * commentTextPositive.length)]
+        }
+
+        if (type == "incorrect") {
+            limbo = true
+            inputIsDisabled = true
+            commentText = commentTextNegative[Math.floor(Math.random() * commentTextNegative.length)]
+            
+        }
+
+    }
+    
+    function limboFunctionPT2() {
+        sliding = false
+        limbo = false
+        quesstionIsCorrect = false
+        inputIsDisabled = false
+    }
+
 </script>
 
 <title>{quizName} | StudyThing</title>
@@ -85,7 +122,7 @@
         <Label content={quizJSON.quizName}/>
         <ProgressBar content="{questionsCompleted}/{questionCount} Questions Completed - {Math.floor(percentageCompleted)}%" align="fill-stretch" progress={percentageCompleted}/>
         
-        {#if inputValue !== "" & questionsCompleted !== questionCount}
+        {#if inputValue !== "" & questionsCompleted !== questionCount & !limbo}
             <Btn content={submitButtonStates[1]} align="right" onClick={submit}/>
         {/if}
         {#if inputValue == "" & questionsCompleted !== questionCount}
@@ -93,6 +130,9 @@
         {/if}
         {#if questionsCompleted == questionCount}
             <Btn content={submitButtonStates[2]} align="right" onClick={submit}/>
+        {/if}
+        {#if limbo}
+            <Btn content={submitButtonStates[3]} align="right" onClick={limboFunctionPT2}/>
         {/if}
 
     </Bar>
@@ -105,17 +145,35 @@
                 transition:fade={{ duration: 300 }}
                 onoutroend={handleOutroEnd}>
                 <div style="display: flex; flex-direction: row; margin-bottom: 10px;">
+                    <ConvertingPoint size=1.5rem active={quesstionIsCorrect}/>
+                   <div style="display:flex; flex-direction:column; margin-left: 15px">
+                    {#if !limbo}
+                    <div style="display: flex; flex-direction:row; margin-bottom: 10px"> 
                     <span class="notouchy">Write "</span>
                     <span class="highlight-wavy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
                     <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
                     <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
-                </div>
-                <div style="display: flex; flex-direction: row;">
+                    </div>
+                    {/if}
+                    {#if limbo}
+                    <div style="display:flex; flex-direction:column; margin-left: 15px; margin-bottom: 10px;">
+                    <span class="notouchy>" transition:fade>{commentText}</span>
+                    </div>
+                    {/if}
+
+                <div style="display: flex; flex-direction: row; order: 2;">
                     
                     <InputField id="input" placeholder={inputPlaceholder} bind:value={inputValue} isDisabled={inputIsDisabled} onEnterUp={submit}/>
                     
                     <div style="margin-left: 5px; margin-top: 5px;">
+                    {#if !limbo}
                     <Btn content="Submit" onClick={submit}/>
+                    {/if}
+                    {#if limbo}
+                    <Btn content="Next Question" onClick={limboFunctionPT2}/>
+                    {/if}
+                    </div>
+                    </div> 
                     </div>
                 </div>
             </div>
