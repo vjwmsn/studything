@@ -152,7 +152,6 @@
                     <span class="notouchy">Write "</span>
                     <span class="highlight-wavy">{quizJSON.quizWords[questionsCompleted].nativeWord}</span>
                     <span class="notouchy">" in {quizJSON.quizTargetLanguage}</span>
-                    <span class="hidden notouchy" style="margin-left: 10px; color: hsl(0,0%,50%)">// correct!</span>
                     </div>
                     {/if}
                     {#if limbo}
